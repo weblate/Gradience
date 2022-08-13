@@ -1,0 +1,29 @@
+name: "Translation"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '21 6 * * 5'
+
+jobs:
+  update-pot:
+    name: Update .pot
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update .pot
+        uses: AdwCustomizerTeam/action-update-pot@main
+        with:
+          title: "Adwaita Manager POT file"
+          copyright: "Adwaita Manager Team"
+          license: "GNU GPLv3"
+          author: "Adwaita Manager Team"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    
